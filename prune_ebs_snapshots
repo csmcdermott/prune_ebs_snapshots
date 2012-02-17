@@ -4,7 +4,7 @@
 putenv('TZ=America/Denver');
 $debug = 0;
 
-$options = getopt("S:K:v:a:p:d");
+$options = getopt("S:K:v:a:p:r:d");
 if (!isset($options["S"])) { usage(); }
 if (!isset($options["K"])) { usage(); }
 if (!isset($options["v"])) { usage(); }
@@ -15,15 +15,14 @@ if (isset($options["d"])) { $debug = 1; }
 define('AWS_KEY', $options["K"]);
 define('AWS_SECRET_KEY', $options["S"]);
 
+if (isset($options["r"])) {
+  $region = $options["r"];
+} else {
+  $region = "us-east-1";
+}
+
 error_reporting(-1);
 require_once '/usr/local/aws-php-sdk/sdk.class.php';
-
-$regions = array (
-	'E1' => 'http://monitoring.amazonaws.com/doc/2010-08-01/CloudWatch.wsdl',
-	'W1' => 'http://monitoring.us-west-1.amazonaws.com/doc/2010-08-01/CloudWatch.wsdl',
-	'EU' => 'http://monitoring.eu-west-1.amazonaws.com/doc/2010-08-01/CloudWatch.wsdl',
-	'AP' => 'http://monitoring.ap-southeast-1.amazonaws.com/doc/2010-08-01/CloudWatch.wsdl',
-	);
 
 $quarters = array (
 	'01' => '1',
@@ -52,6 +51,7 @@ if (($period != "q") && ($period != "m")) {
 }
 
 $ec2 = new AmazonEC2();
+$ec2 = $ec2->set_region($region);
 
 // Get the response from a call to the DescribeImages operation.
 $response = $ec2->describe_snapshots();
