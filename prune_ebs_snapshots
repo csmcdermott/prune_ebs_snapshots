@@ -5,7 +5,7 @@
  *  @File
  *  This script prunes EBS snapshots on the AWS cloud.
  *
- *  We offer no warantee or guarantee - use this code at your own risk!
+ *  We offer no warranty or guarantee - use this code at your own risk!
  *  All code is Copyright (C) 2012, Applied Trust Engineering, Inc.
  *
  */
