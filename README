@@ -1,0 +1,22 @@
+Written by Chris McDermott, AppliedTrust
+  chris@appliedtrust.com
+  v2.3 04/12/2012
+
+
+------------------------------------------------------------------
+We offer no warantee or guarantee - use this code at your own risk!
+All code is Copyright (C) 2012, Applied Trust Engineering, Inc.
+------------------------------------------------------------------
+
+
+
+This is a nagios plugin that prunes Amazon AWS EBS snapshots. You 
+provide the Access Key, Secret Access Key, Volume ID, number of 
+days of snapshots to keep, and retention period as arguments.
+
+The fourth argument - number of days of snapshots to keep, is 
+pretty self-explanatory. Any snapshot created more recently than 
+that is kept. The last argument - retention period - must be either
+'m' or 'q' (monthly or quarterly). The script will also retain one
+snapshot per period - so one per month for monthly, and one per 
+quarter for quarterly.  
